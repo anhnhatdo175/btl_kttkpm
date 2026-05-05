@@ -24,7 +24,7 @@ public class Suppliers {
 
     private String bankAccount;
 
-    private Boolean active;
+    private Boolean active = true;
 
     public Suppliers() {}
 

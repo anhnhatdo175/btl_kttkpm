@@ -61,7 +61,7 @@
             <div class="box">
                 <div class="box-header">Nhập thông tin nhà cung cấp</div>
                 <div class="box-body">
-                    <form th:action="@{/supplier/save}" method="post" th:object="${supplier}">
+                    <form th:action="@{/supplier/add}" method="post" th:object="${supplier}">
                         <div class="form-group">
                             <label>Tên nhà cung cấp</label>
                             <input type="text" th:field="*{name}" required>
@@ -106,7 +106,7 @@
             <div class="box">
                 <div class="box-header bg-warning">Chỉnh sửa thông tin</div>
                 <div class="box-body">
-                    <form th:action="@{/supplier/update}" method="post" th:object="${supplier}">
+                    <form th:action="@{/supplier/edit/{id}(id=${supplier.id})}" method="post" th:object="${supplier}">
                         <input type="hidden" th:field="*{id}">
                         <div class="form-group">
                             <label>Mã NCC</label>
