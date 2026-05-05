@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết nhà cung cấp - Thống kê</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="navbar bg-success">
+        <span class="navbar-brand">Chi tiết nhà cung cấp</span>
+        <a th:href="@{/statistics/suppliers(fromDate=${#dates.format(fromDate, 'yyyy-MM-dd')}, toDate=${#dates.format(toDate, 'yyyy-MM-dd')})}" class="btn btn-outline-light btn-sm">Quay lại</a>
+    </div>
+    <div class="container">
+        <div class="box">
+            <div class="box-header bg-info">
+                Danh sách phiếu nhập hàng từ nhà cung cấp: <span th:text="${supplier.name}"></span>
+                <br><small>Khoảng thời gian: <span th:text="${#dates.format(fromDate, 'dd/MM/yyyy')}"></span> - <span th:text="${#dates.format(toDate, 'dd/MM/yyyy')}"></span></small>
+            </div>
+            <div class="box-body">
+                <table>
+                    <thead>
+                        <tr><th>Mã phiếu</th><th>Ngày nhập</th><th>Số lượng hàng</th><th>Người lập phiếu</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="r : ${receipts}">
+                            <td th:text="${r.id}"></td>
+                            <td th:text="${#dates.format(r.receiveDate, 'dd/MM/yyyy')}"></td>
+                            <td th:text="${r.totalQuantity}"></td>
+                            <td th:text="${r.employeeName}"></td>
+                        </tr>
+                        <tr th:if="${receipts == null || receipts.isEmpty()}">
+                            <td colspan="4" class="text-center text-muted">Không có phiếu nhập nào</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <a th:href="@{/statistics/suppliers(fromDate=${#dates.format(fromDate, 'yyyy-MM-dd')}, toDate=${#dates.format(toDate, 'yyyy-MM-dd')})}" class="btn btn-secondary">Quay lại</a>
+    </div>
+</body>
+</html>

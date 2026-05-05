@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý nhà cung cấp</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="navbar">
+        <span class="navbar-brand">Quản lý nhà cung cấp</span>
+        <a th:href="@{/trangChuNhanVienKho}" class="btn btn-outline-light btn-sm">Quay về trang chủ</a>
+    </div>
+    <div class="container">
+        <h2 class="page-title">Tùy chọn quản lý nhà cung cấp</h2>
+        <div class="button-group">
+            <div class="button-card">
+                <h5>Thêm mới</h5>
+                <p>Thêm nhà cung cấp mới</p>
+                <a th:href="@{/supplier/add}" class="btn btn-primary btn-block">Thêm mới</a>
+            </div>
+            <div class="button-card">
+                <h5>Sửa</h5>
+                <p>Chỉnh sửa nhà cung cấp</p>
+                <a th:href="@{/supplier/all?mode=edit}" class="btn btn-warning btn-block">Sửa</a>
+            </div>
+            <div class="button-card">
+                <h5>Tìm kiếm</h5>
+                <p>Tìm kiếm nhà cung cấp</p>
+                <a th:href="@{/supplier/all?mode=search}" class="btn btn-info btn-block">Tìm kiếm nhà cung cấp</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

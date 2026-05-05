@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tìm kiếm sản phẩm</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="navbar">
+        <span class="navbar-brand">Tìm kiếm sản phẩm</span>
+        <a th:href="@{/goodsReceipt/create}" class="btn btn-outline-light btn-sm">Quay lại</a>
+    </div>
+    <div class="container">
+        <!-- Form tìm kiếm -->
+        <div class="box">
+            <div class="box-body">
+                <form th:action="@{/goodsReceipt/searchProduct}" method="get" class="search-form">
+                    <input type="text" name="barcode" placeholder="Nhập mã vạch" required>
+                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Danh sách sản phẩm tìm được -->
+        <div th:if="${products != null && !products.isEmpty()}">
+            <div class="box">
+                <div class="box-header bg-success">Kết quả tìm kiếm</div>
+                <div class="box-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tên sản phẩm</th>
+                                <th>Mã vạch</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="p : ${products}">
+                                <td th:text="${p.name}"></td>
+                                <td th:text="${p.barcode}"></td>
+                                <td><a th:href="@{/goodsReceipt/itemDetail(id=${p.id})}" class="btn btn-primary btn-sm">Chọn</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Không tìm thấy -->
+        <div th:if="${notFound}" class="box">
+            <div class="box-body text-center">
+                <div class="alert alert-warning">Không tìm thấy sản phẩm</div>
+                <a th:href="@{/goodsReceipt/newProduct}" class="btn btn-success">Tạo mới sản phẩm</a>
+                <a th:href="@{/goodsReceipt/create}" class="btn btn-secondary">Quay lại</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

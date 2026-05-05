@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách nhà cung cấp</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="navbar">
+        <span class="navbar-brand">Danh sách nhà cung cấp</span>
+        <!-- Nút quay về tùy theo mode -->
+        <a th:if="${mode == 'receipt'}" th:href="@{/goodsReceipt/create}" class="btn btn-outline-light btn-sm">Quay về</a>
+        <a th:if="${mode != 'receipt'}" th:href="@{/quanLyNhaCungCap}" class="btn btn-outline-light btn-sm">Quay về trang chủ</a>
+    </div>
+    <div class="container">
+        <!-- Form tìm kiếm -->
+        <div class="box">
+            <div class="box-body">
+                <form th:if="${mode == 'receipt'}" th:action="@{/goodsReceipt/suppliers}" method="get" class="search-form">
+                    <input type="text" name="name" placeholder="Tên tìm kiếm" th:value="${searchName}">
+                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                </form>
+                <form th:if="${mode != 'receipt'}" th:action="@{/supplier/all}" method="get" class="search-form">
+                    <input type="hidden" name="mode" th:value="${mode}">
+                    <input type="text" name="name" placeholder="Tên tìm kiếm" th:value="${searchName}">
+                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Bảng danh sách -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Mã NCC</th>
+                    <th>Tên nhà cung cấp</th>
+                    <th>Tên liên hệ</th>
+                    <th>Số điện thoại</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="s : ${suppliers}">
+                    <td th:text="${s.id}"></td>
+                    <td th:text="${s.name}"></td>
+                    <td th:text="${s.contactName}"></td>
+                    <td th:text="${s.phone}"></td>
+                    <td>
+                        <span th:if="${s.active}" class="badge badge-success">Hoạt động</span>
+                        <span th:if="${!s.active}" class="badge badge-secondary">Ngừng</span>
+                    </td>
+                    <td>
+                        <a th:if="${mode == 'receipt'}" th:href="@{/goodsReceipt/chooseSupplier(id=${s.id})}" class="btn btn-success btn-sm">Chọn</a>
+                        <a th:if="${mode == 'edit'}" th:href="@{/supplier/edit/{id}(id=${s.id})}" class="btn btn-warning btn-sm">Sửa</a>
+                        <a th:if="${mode == 'search' || mode == null}" th:href="@{/supplier/{id}(id=${s.id})}" class="btn btn-info btn-sm">Xem chi tiết</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(suppliers)}">
+                    <td colspan="6" class="text-center text-muted">Không tìm thấy nhà cung cấp nào</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

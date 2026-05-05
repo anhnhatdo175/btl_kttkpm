@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ quản lý</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="navbar bg-success">
+        <span class="navbar-brand">Hệ thống quản lý siêu thị</span>
+        <div class="nav-right">
+            <span th:text="'Xin chào, ' + ${session.loggedInEmployee.name}"></span>
+            <a th:href="@{/logout}" class="btn btn-outline-light btn-sm">Đăng xuất</a>
+        </div>
+    </div>
+    <div class="container">
+        <h2 class="page-title">Trang chủ quản lý</h2>
+        <div class="button-group">
+            <div class="button-card">
+                <h5>Báo cáo thống kê</h5>
+                <p>Xem báo cáo thống kê hệ thống</p>
+                <a th:href="@{/tuyChonBaoCao}" class="btn btn-success btn-block">Báo cáo thống kê</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

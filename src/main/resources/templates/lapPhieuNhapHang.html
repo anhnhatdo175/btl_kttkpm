@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lập phiếu nhập hàng</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="navbar">
+        <span class="navbar-brand">Lập phiếu nhập hàng</span>
+        <a th:href="@{/goodsReceipt/cancel}" class="btn btn-outline-light btn-sm">Quay lại trang chủ</a>
+    </div>
+    <div class="container">
+        <!-- Thông báo thành công -->
+        <div th:if="${success}">
+            <div class="alert alert-success text-center">
+                <strong th:text="${message}"></strong>
+            </div>
+            <div class="text-center">
+                <a th:href="@{/trangChuNhanVienKho}" class="btn btn-primary">Quay lại trang chủ</a>
+            </div>
+        </div>
+
+        <!-- Thông báo lỗi -->
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+        <!-- Form phiếu nhập (chỉ hiển thị khi chưa thành công) -->
+        <div th:if="${success != true}">
+            <div class="box">
+                <div class="box-header">Thông tin phiếu nhập</div>
+                <div class="box-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Ngày nhập</label>
+                            <input type="date" disabled th:value="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}">
+                        </div>
+                        <div class="form-group">
+                            <label>Nhà cung cấp</label>
+                            <div class="input-group">
+                                <input type="text" readonly th:value="${supplierName != null ? supplierName : 'Chưa chọn'}">
+                                <a th:href="@{/goodsReceipt/suppliers}" class="btn btn-primary">Chọn nhà cung cấp</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Danh sách sản phẩm nhập -->
+            <div class="box">
+                <div class="box-header bg-info" style="display:flex;justify-content:space-between;align-items:center;">
+                    <span>Danh sách sản phẩm nhập</span>
+                    <a th:href="@{/goodsReceipt/searchProduct}" class="btn btn-sm" style="background:#fff;color:#333;">Thêm sản phẩm</a>
+                </div>
+                <div class="box-body">
+                    <table th:if="${items != null && !items.isEmpty()}">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Mã vạch</th>
+                                <th>Số lượng nhập</th>
+                                <th>Giá nhập</th>
+                                <th>Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="item, stat : ${items}">
+                                <td th:text="${stat.index + 1}"></td>
+                                <td th:text="${item.productName}"></td>
+                                <td th:text="${item.productBarcode}"></td>
+                                <td th:text="${item.quantity}"></td>
+                                <td th:text="${#numbers.formatDecimal(item.priceImport, 0, 0)}"></td>
+                                <td th:text="${#numbers.formatDecimal(item.priceImport * item.quantity, 0, 0)}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p th:if="${items == null || items.isEmpty()}" class="text-center text-muted">Chưa có sản phẩm nào</p>
+                </div>
+            </div>
+
+            <!-- Ghi chú và xác nhận -->
+            <form th:action="@{/goodsReceipt/confirm}" method="post">
+                <div class="box">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label>Ghi chú</label>
+                            <textarea name="note" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-lg">Xác nhận nhập hàng</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

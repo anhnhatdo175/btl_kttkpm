@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ nhân viên kho</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="navbar">
+        <span class="navbar-brand">Hệ thống quản lý siêu thị</span>
+        <div class="nav-right">
+            <span th:text="'Xin chào, ' + ${session.loggedInEmployee.name}"></span>
+            <a th:href="@{/logout}" class="btn btn-outline-light btn-sm">Đăng xuất</a>
+        </div>
+    </div>
+    <div class="container">
+        <h2 class="page-title">Trang chủ nhân viên kho</h2>
+        <div class="button-group">
+            <div class="button-card">
+                <h5>Quản lý nhà cung cấp</h5>
+                <p>Thêm, sửa, tìm kiếm nhà cung cấp</p>
+                <a th:href="@{/quanLyNhaCungCap}" class="btn btn-primary btn-block">Quản lý nhà cung cấp</a>
+            </div>
+            <div class="button-card">
+                <h5>Lập phiếu nhập hàng</h5>
+                <p>Tạo phiếu nhập hàng mới</p>
+                <a th:href="@{/goodsReceipt/create}" class="btn btn-primary btn-block">Lập phiếu nhập hàng</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

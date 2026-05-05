@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tùy chọn báo cáo thống kê</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="navbar bg-success">
+        <span class="navbar-brand">Báo cáo thống kê</span>
+        <a th:href="@{/trangChuQuanLy}" class="btn btn-outline-light btn-sm">Quay về trang chủ</a>
+    </div>
+    <div class="container">
+        <h2 class="page-title">Tùy chọn báo cáo thống kê</h2>
+        <div class="button-group">
+            <div class="button-card">
+                <h5>Thống kê nhà cung cấp theo lượng hàng nhập</h5>
+                <p>Xem thống kê tổng lượng hàng nhập theo từng nhà cung cấp</p>
+                <a th:href="@{/thongKeNCC}" class="btn btn-success btn-block">Thống kê nhà cung cấp theo lượng hàng nhập</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

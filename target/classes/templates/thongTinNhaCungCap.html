@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin nhà cung cấp</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="navbar">
+        <span class="navbar-brand">Thông tin nhà cung cấp</span>
+        <a th:href="@{/quanLyNhaCungCap}" class="btn btn-outline-light btn-sm">Quay về trang chủ</a>
+    </div>
+    <div class="container">
+        <!-- Thông báo thêm thành công -->
+        <div th:if="${mode == 'add_success'}">
+            <div class="alert alert-success text-center">
+                <strong>Thêm nhà cung cấp thành công!</strong>
+            </div>
+            <div class="box">
+                <div class="box-header">Thông tin nhà cung cấp vừa thêm</div>
+                <div class="box-body">
+                    <table class="info-table">
+                        <tr><th>Mã NCC</th><td th:text="${supplier.id}"></td></tr>
+                        <tr><th>Tên nhà cung cấp</th><td th:text="${supplier.name}"></td></tr>
+                        <tr><th>Tên liên hệ</th><td th:text="${supplier.contactName}"></td></tr>
+                        <tr><th>Số điện thoại</th><td th:text="${supplier.phone}"></td></tr>
+                        <tr><th>Email</th><td th:text="${supplier.email}"></td></tr>
+                        <tr><th>Địa chỉ</th><td th:text="${supplier.address}"></td></tr>
+                    </table>
+                </div>
+            </div>
+            <a th:href="@{/quanLyNhaCungCap}" class="btn btn-primary">Quay về trang chủ</a>
+        </div>
+
+        <!-- Thông báo sửa thành công -->
+        <div th:if="${mode == 'edit_success'}">
+            <div class="alert alert-success text-center">
+                <strong>Cập nhật nhà cung cấp thành công!</strong>
+            </div>
+            <div class="box">
+                <div class="box-header">Thông tin nhà cung cấp đã cập nhật</div>
+                <div class="box-body">
+                    <table class="info-table">
+                        <tr><th>Mã NCC</th><td th:text="${supplier.id}"></td></tr>
+                        <tr><th>Tên nhà cung cấp</th><td th:text="${supplier.name}"></td></tr>
+                        <tr><th>Tên liên hệ</th><td th:text="${supplier.contactName}"></td></tr>
+                        <tr><th>Số điện thoại</th><td th:text="${supplier.phone}"></td></tr>
+                        <tr><th>Email</th><td th:text="${supplier.email}"></td></tr>
+                        <tr><th>Địa chỉ</th><td th:text="${supplier.address}"></td></tr>
+                        <tr><th>Trạng thái</th><td th:text="${supplier.active ? 'Hoạt động' : 'Ngừng'}"></td></tr>
+                    </table>
+                </div>
+            </div>
+            <a th:href="@{/quanLyNhaCungCap}" class="btn btn-primary">Quay về trang chủ</a>
+        </div>
+
+        <!-- Form thêm nhà cung cấp -->
+        <div th:if="${mode == 'add'}">
+            <h2 class="page-title">Thêm nhà cung cấp</h2>
+            <div class="box">
+                <div class="box-header">Nhập thông tin nhà cung cấp</div>
+                <div class="box-body">
+                    <form th:action="@{/supplier/save}" method="post" th:object="${supplier}">
+                        <div class="form-group">
+                            <label>Tên nhà cung cấp</label>
+                            <input type="text" th:field="*{name}" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Tên liên hệ</label>
+                            <input type="text" th:field="*{contactName}" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Số điện thoại</label>
+                                <input type="text" th:field="*{phone}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" th:field="*{email}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Địa chỉ</label>
+                            <input type="text" th:field="*{address}">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Mã số thuế</label>
+                                <input type="text" th:field="*{taxCode}">
+                            </div>
+                            <div class="form-group">
+                                <label>Tài khoản ngân hàng</label>
+                                <input type="text" th:field="*{bankAccount}">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Thêm</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form sửa nhà cung cấp -->
+        <div th:if="${mode == 'edit'}">
+            <h2 class="page-title">Chỉnh sửa nhà cung cấp</h2>
+            <div class="box">
+                <div class="box-header bg-warning">Chỉnh sửa thông tin</div>
+                <div class="box-body">
+                    <form th:action="@{/supplier/update}" method="post" th:object="${supplier}">
+                        <input type="hidden" th:field="*{id}">
+                        <div class="form-group">
+                            <label>Mã NCC</label>
+                            <input type="text" th:value="${supplier.id}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Tên nhà cung cấp</label>
+                            <input type="text" th:field="*{name}" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Tên liên hệ</label>
+                            <input type="text" th:field="*{contactName}" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Số điện thoại</label>
+                                <input type="text" th:field="*{phone}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" th:field="*{email}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Địa chỉ</label>
+                            <input type="text" th:field="*{address}">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Mã số thuế</label>
+                                <input type="text" th:field="*{taxCode}">
+                            </div>
+                            <div class="form-group">
+                                <label>Tài khoản ngân hàng</label>
+                                <input type="text" th:field="*{bankAccount}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Trạng thái</label>
+                            <select th:field="*{active}">
+                                <option value="true">Hoạt động</option>
+                                <option value="false">Ngừng</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-warning">Xác nhận</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Xem chi tiết nhà cung cấp -->
+        <div th:if="${mode == 'detail'}">
+            <h2 class="page-title">Chi tiết nhà cung cấp</h2>
+            <div class="box">
+                <div class="box-header bg-info">Thông tin chi tiết</div>
+                <div class="box-body">
+                    <table class="info-table">
+                        <tr><th>Mã NCC</th><td th:text="${supplier.id}"></td></tr>
+                        <tr><th>Tên nhà cung cấp</th><td th:text="${supplier.name}"></td></tr>
+                        <tr><th>Tên liên hệ</th><td th:text="${supplier.contactName}"></td></tr>
+                        <tr><th>Số điện thoại</th><td th:text="${supplier.phone}"></td></tr>
+                        <tr><th>Email</th><td th:text="${supplier.email}"></td></tr>
+                        <tr><th>Địa chỉ</th><td th:text="${supplier.address}"></td></tr>
+                        <tr><th>Mã số thuế</th><td th:text="${supplier.taxCode}"></td></tr>
+                        <tr><th>Tài khoản ngân hàng</th><td th:text="${supplier.bankAccount}"></td></tr>
+                        <tr>
+                            <th>Trạng thái</th>
+                            <td>
+                                <span th:if="${supplier.active}" class="badge badge-success">Hoạt động</span>
+                                <span th:if="${!supplier.active}" class="badge badge-secondary">Ngừng</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <a th:href="@{/quanLyNhaCungCap}" class="btn btn-primary">Quay về</a>
+        </div>
+    </div>
+</body>
+</html>

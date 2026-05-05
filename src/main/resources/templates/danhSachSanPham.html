@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách sản phẩm</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="navbar">
+        <span class="navbar-brand">Danh sách sản phẩm</span>
+        <a th:href="@{/goodsReceipt/searchProduct}" class="btn btn-outline-light btn-sm">Quay lại</a>
+    </div>
+    <div class="container">
+        <div th:if="${products != null && !products.isEmpty()}">
+            <table>
+                <thead>
+                    <tr><th>Tên sản phẩm</th><th>Mã vạch</th><th>Thao tác</th></tr>
+                </thead>
+                <tbody>
+                    <tr th:each="p : ${products}">
+                        <td th:text="${p.name}"></td>
+                        <td th:text="${p.barcode}"></td>
+                        <td><a th:href="@{/goodsReceipt/itemDetail(id=${p.id})}" class="btn btn-primary btn-sm">Chọn</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${notFound}" class="text-center">
+            <div class="alert alert-warning">Không tìm thấy sản phẩm với mã vạch: <strong th:text="${barcode}"></strong></div>
+            <a th:href="@{/goodsReceipt/newProduct}" class="btn btn-success">Tạo mới sản phẩm</a>
+            <a th:href="@{/goodsReceipt/searchProduct}" class="btn btn-secondary">Quay lại</a>
+        </div>
+    </div>
+</body>
+</html>
