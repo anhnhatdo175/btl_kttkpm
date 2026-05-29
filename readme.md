@@ -1,4 +1,4 @@
-# Hệ thống Quản lý Bán hàng Siêu thị — Implementation Plan
+# Hệ thống Quản lý Bán hàng Siêu thị 
 
 ## Mô tả
 Triển khai hệ thống quản lý bán hàng siêu thị theo đúng kiến trúc MVC được thiết kế trong báo cáo. Hệ thống bao gồm 3 module:
